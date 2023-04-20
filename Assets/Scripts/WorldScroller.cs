@@ -19,11 +19,12 @@ public class WorldScroller : MonoBehaviour
     {
         ChangeSurface2X(surface1,surface2);
         ChangeSurface2X(surface2, surface1);
+
     }
 
     private void ChangeSurface2X(GameObject surface1,GameObject surface2)
     {
-        if (player.transform.position.x > surface1.transform.position.x)
+        if (player.transform.position.x > surface1.transform.position.x +20)
         {
             surface2.transform.position = new Vector3(surface1.transform.position.x + offset, surface1.transform.position.y,
                 surface1.transform.position.z);

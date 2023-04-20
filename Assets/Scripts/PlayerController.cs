@@ -7,12 +7,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
+    [SerializeField] private Animator animator;
     private Rigidbody2D rigidbody2D;
     private Vector3 movementVector;
     private bool facingRight = true;
+    private bool isUnderwater = false;
 
     private void Awake()
     {
+        isUnderwater = false;
         rigidbody2D = GetComponent<Rigidbody2D>();
         movementVector = new Vector3();
     }
@@ -20,12 +23,25 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         movementVector.x = Input.GetAxis("Horizontal");
-        movementVector.y = Input.GetAxis("Vertical");
+        movementVector.y=0;
+        if (isUnderwater)
+        {
+            movementVector.y = Input.GetAxis("Vertical");
+        }
+
         movementVector *= speed;
         rigidbody2D.velocity = movementVector;
-        if(IsPlayerFacingOppositeDirectionOfMovement())
+        if (IsPlayerFacingOppositeDirectionOfMovement())
         {
             Flip();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && !isUnderwater)
+        {
+            isUnderwater = true;
+            animator.SetBool("isUnderwater", true);
+            AudioManager.GetInstance().GetAudioSource("Ambience","SeaWaves").Stop();
+            AudioManager.GetInstance().GetAudioSource("Ambience","Abyss").Play();
         }
     }
 
@@ -39,6 +55,10 @@ public class PlayerController : MonoBehaviour
 
     private bool IsPlayerFacingOppositeDirectionOfMovement()
     {
-        return movementVector.x>0 &&!facingRight || movementVector.x<0 && facingRight;
+        return movementVector.x > 0 && !facingRight || movementVector.x < 0 && facingRight;
+    }
+    public void SetIsUnderwater(bool isUnderwater)
+    {
+        this.isUnderwater = isUnderwater;
     }
 }
