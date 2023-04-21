@@ -25,6 +25,7 @@ public class Surface : MonoBehaviour
     {
         Debug.Log("Player is on surface");
         playerController.SetIsUnderwater(false);
+        playerController.SetCanMoveVertically(false);
         animator.SetBool("isUnderwater", false);
         other.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         currentAudioSource=audioManager.GetAudioSource("Ambience", "Abyss");

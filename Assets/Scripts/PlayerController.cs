@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private Animator animator;
     [SerializeField] private int diveForce = 5;
+    private bool canMoveVertically = false;
     private Rigidbody2D rigidbody2D;
     private BoxCollider2D boxCollider2D;
     private Vector3 movementVector;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         movementVector.x = Input.GetAxis("Horizontal");
         movementVector.y = 0;
-        if (isUnderwater)
+        if (canMoveVertically)
         {
             movementVector.y = Input.GetAxis("Vertical");
         }
@@ -66,6 +67,10 @@ public class PlayerController : MonoBehaviour
     {
         this.isUnderwater = isUnderwater;
     }
+    public void SetCanMoveVertically(bool canMoveVertically)
+    {
+        this.canMoveVertically = canMoveVertically;
+    }
 
     private IEnumerator SmoothLerp(float time)
     {
@@ -86,13 +91,14 @@ public class PlayerController : MonoBehaviour
         currentAudioSource = audioManager.GetAudioSource("SFX", "DeepBreath");
         currentAudioSource.Play();
         yield return WaitForSoundToFinish(currentAudioSource);
-        audioManager.GetAudioSource("SFX", "Bubbles").Play();
         currentAudioSource = audioManager.GetAudioSource("Ambience", "SeaWaves");
         yield return FadeAudioSource.StartFade(currentAudioSource, 0.3f, 0f);
+        audioManager.GetAudioSource("SFX", "Bubbles").Play();
         currentAudioSource = audioManager.GetAudioSource("Ambience", "Abyss");
         currentAudioSource.Play();
         yield return FadeAudioSource.StartFade(currentAudioSource, 0.3f, 1f);
         yield return SmoothLerp(time);
+        canMoveVertically = true;
         animator.SetBool("isUnderwater", true);
         boxCollider2D.enabled = true;
     }
