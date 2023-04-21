@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ambience
+  - SFX
   layers:
   - Default
   - TransparentFX
