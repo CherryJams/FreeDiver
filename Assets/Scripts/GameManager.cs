@@ -9,11 +9,12 @@ public class GameManager : Singleton<GameManager>
     private bool isGameActive = false;
     private bool isPlayerUnderwater = false;
     private Leaderboard leaderboard;
+    private DepthGauge depthGauge;
 
     private void OnEnable()
     {
         leaderboard = FindObjectOfType<Leaderboard>();
-        
+        depthGauge = FindObjectOfType<DepthGauge>();
     }
 
     public void StartGame()
@@ -33,8 +34,7 @@ public class GameManager : Singleton<GameManager>
 
     public void EndGame()
     {
-        var score = FindObjectOfType<DepthGauge>();
-        StartCoroutine(leaderboard.SubmitScoreRoutine(score.GetDepth()));
+        StartCoroutine(leaderboard.SubmitScoreRoutine(depthGauge.GetMaxDepth()));
         CanvasManager.GetInstance().SwitchCanvas(CanvasType.GameOverScreen);
         StartCoroutine(leaderboard.FetchTopHighscoresRoutine());
     }
@@ -62,6 +62,7 @@ public class GameManager : Singleton<GameManager>
     {
         return isGameActive;
     }
+
     public bool IsPlayerUnderwater()
     {
         return isPlayerUnderwater;

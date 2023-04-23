@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private Animator animator;
     [SerializeField] private int diveForce = 5;
+    [SerializeField] private Oxygen oxygen;
+    [SerializeField] private GameObject oxygenBar;
     private bool canMoveVertically = false;
     private Rigidbody2D rigidbody2D;
     private BoxCollider2D boxCollider2D;
@@ -56,6 +58,14 @@ public class PlayerController : MonoBehaviour
         currentScale.x *= -1;
         gameObject.transform.localScale = currentScale;
         facingRight = !facingRight;
+        UnflipOxygenBar();
+    }
+
+    private void UnflipOxygenBar()
+    {
+            Vector3 childScale = oxygenBar.transform.localScale;
+            childScale.x *= -1;
+            oxygenBar.transform.localScale = childScale;
     }
 
     private bool IsPlayerFacingOppositeDirectionOfMovement()
@@ -98,6 +108,7 @@ public class PlayerController : MonoBehaviour
         currentAudioSource.Play();
         yield return FadeAudioSource.StartFade(currentAudioSource, 0.3f, 1f);
         yield return SmoothLerp(time);
+        oxygen.DecreaseOxygen();
         canMoveVertically = true;
         animator.SetBool("isUnderwater", true);
         boxCollider2D.enabled = true;

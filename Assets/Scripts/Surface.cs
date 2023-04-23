@@ -6,6 +6,7 @@ public class Surface : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private Oxygen oxygen;
     private AudioManager audioManager;
     private AudioSource currentAudioSource;
     private void Awake()
@@ -24,6 +25,7 @@ public class Surface : MonoBehaviour
     private IEnumerator Rise(Collision2D other)
     {
         Debug.Log("Player is on surface");
+        oxygen.RechargeOxygen();
         playerController.SetIsUnderwater(false);
         playerController.SetCanMoveVertically(false);
         animator.SetBool("isUnderwater", false);

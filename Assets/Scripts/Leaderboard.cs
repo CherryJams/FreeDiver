@@ -44,7 +44,7 @@ public class Leaderboard : MonoBehaviour
             if (response.success)
             {
                 string tempPlayerNames = "Names\n";
-                string tempPlayerScores = "Scores\n";
+                string tempPlayerScores = "Maximum Depth\n";
 
                 LootLockerLeaderboardMember[] members = response.items;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Oxygen : MonoBehaviour
 {
     [SerializeField] private float maxOxygen;
+    [SerializeField] private float timeToRecharge;
     private GameObject bar;
 
     // Start is called before the first frame update
@@ -13,26 +14,19 @@ public class Oxygen : MonoBehaviour
         bar = this.gameObject;
     }
 
-    public void AnimateBar()
+    public void DecreaseOxygen()
     {
-        ResetBar();
-        if (GameManager.GetInstance().IsPlayerUnderwater())
-        {
-            LeanTween.scaleX(bar, 0, maxOxygen).setOnComplete(EndGame);
-        }
+        LeanTween.scaleX(bar, 0, maxOxygen).setOnComplete(EndGame);
     }
 
-    public void ResetBar()
+    public void RechargeOxygen()
     {
         LeanTween.cancel(bar);
-        LeanTween.scaleX(bar, 1, 0);
+        LeanTween.scaleX(bar, 1, timeToRecharge);
     }
 
     public void EndGame()
     {
-        ResetBar();
         GameManager.GetInstance().EndGame();
     }
-
-
 }
