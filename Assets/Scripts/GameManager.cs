@@ -1,20 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    private bool isGameActive = false;
+    [SerializeField] private Animator animator;
+    private AudioManager audioManager;
+    private AudioSource currentAudioSource;
+    private bool isGameActive = true;
     private bool isPlayerUnderwater = false;
     private Leaderboard leaderboard;
     private DepthGauge depthGauge;
+    private GameObject player;
+    [SerializeField] private float slowdownFactor = 0.5f;
+    [SerializeField] private float slowdownTime = 1f;
+    [SerializeField] private float stopTime = 0.5f;
 
     private void OnEnable()
     {
+        player = GameObject.FindWithTag("Player");
         leaderboard = FindObjectOfType<Leaderboard>();
         depthGauge = FindObjectOfType<DepthGauge>();
+        audioManager = AudioManager.GetInstance();
+        animator = FindObjectOfType<Animator>();
     }
 
     public void StartGame()
@@ -34,6 +45,16 @@ public class GameManager : Singleton<GameManager>
 
     public void EndGame()
     {
+        StartCoroutine(EndGameCoroutine());
+    }
+
+    private IEnumerator EndGameCoroutine()
+    {
+        SetGameActive(false);
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        yield return Stop();
+        yield return ApplySlowMotionEffect();
+        yield return new WaitForSecondsRealtime(1f);
         StartCoroutine(leaderboard.SubmitScoreRoutine(depthGauge.GetMaxDepth()));
         CanvasManager.GetInstance().SwitchCanvas(CanvasType.GameOverScreen);
         StartCoroutine(leaderboard.FetchTopHighscoresRoutine());
@@ -71,5 +92,26 @@ public class GameManager : Singleton<GameManager>
     public void SetGameActive(bool gameActive)
     {
         isGameActive = gameActive;
+    }
+
+    private IEnumerator ApplySlowMotionEffect()
+    {
+        animator.SetBool("isDead", true);
+        Time.timeScale = slowdownFactor;
+        currentAudioSource = audioManager.GetAudioSource("SFX", "Death");
+        currentAudioSource.pitch = slowdownFactor;
+        currentAudioSource.Play();
+        yield return new WaitForSecondsRealtime(slowdownTime);
+        Time.timeScale = 1f;
+    }
+
+    private IEnumerator Stop()
+    {
+        Time.timeScale = 0;
+        currentAudioSource = audioManager.GetAudioSource("Ambience", "Abyss");
+        currentAudioSource.Stop();
+        FadeAudioSource.StartFade(currentAudioSource, 0.3f, 0f);
+        yield return new WaitForSecondsRealtime(stopTime);
+        Time.timeScale = 1f;
     }
 }

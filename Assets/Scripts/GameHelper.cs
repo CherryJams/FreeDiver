@@ -6,4 +6,9 @@ public class GameHelper : MonoBehaviour
     {
         CanvasManager.GetInstance().SwitchCanvas(CanvasType.GameUI);
     }
+
+   public void SetGameActive()
+   {
+      GameManager.GetInstance().SetGameActive(true); 
+   }
 }

@@ -19,36 +19,42 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private bool isUnderwater = false;
     private AudioManager audioManager;
+    private GameManager gameManager;
 
     private void Awake()
     {
+        gameManager = GameManager.GetInstance();
         audioManager = AudioManager.GetInstance();
         isUnderwater = false;
         rigidbody2D = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         movementVector = new Vector3();
+        
     }
 
     void FixedUpdate()
     {
-        movementVector.x = Input.GetAxis("Horizontal");
-        movementVector.y = 0;
-        if (canMoveVertically)
+        if (gameManager.IsGameActive())
         {
-            movementVector.y = Input.GetAxis("Vertical");
-        }
+            movementVector.x = Input.GetAxis("Horizontal");
+            movementVector.y = 0;
+            if (canMoveVertically)
+            {
+                movementVector.y = Input.GetAxis("Vertical");
+            }
 
-        movementVector *= speed;
-        rigidbody2D.velocity = movementVector;
-        if (IsPlayerFacingOppositeDirectionOfMovement())
-        {
-            Flip();
-        }
+            movementVector *= speed;
+            rigidbody2D.velocity = movementVector;
+            if (IsPlayerFacingOppositeDirectionOfMovement())
+            {
+                Flip();
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isUnderwater)
-        {
-            isUnderwater = true;
-            StartCoroutine(Dive(1f));
+            if (Input.GetKeyDown(KeyCode.Space) && !isUnderwater)
+            {
+                isUnderwater = true;
+                StartCoroutine(Dive(1f));
+            }
         }
     }
 
@@ -58,15 +64,8 @@ public class PlayerController : MonoBehaviour
         currentScale.x *= -1;
         gameObject.transform.localScale = currentScale;
         facingRight = !facingRight;
-        UnflipOxygenBar();
     }
 
-    private void UnflipOxygenBar()
-    {
-            Vector3 childScale = oxygenBar.transform.localScale;
-            childScale.x *= -1;
-            oxygenBar.transform.localScale = childScale;
-    }
 
     private bool IsPlayerFacingOppositeDirectionOfMovement()
     {
@@ -77,6 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         this.isUnderwater = isUnderwater;
     }
+
     public void SetCanMoveVertically(bool canMoveVertically)
     {
         this.canMoveVertically = canMoveVertically;
@@ -118,4 +118,5 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(audioSource.clip.length);
     }
+    
 }
