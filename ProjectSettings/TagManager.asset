@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Ambience
   - SFX
+  - PlayerAnimator
+  - Turtle
+  - Octopus
+  - Sawfish
+  - Jellyfish
+  - Eel
+  - Anglerfish
   layers:
   - Default
   - TransparentFX

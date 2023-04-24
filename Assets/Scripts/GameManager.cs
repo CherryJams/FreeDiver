@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator playerAnimator;
     private AudioManager audioManager;
     private AudioSource currentAudioSource;
     private bool isGameActive = true;
@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager>
         leaderboard = FindObjectOfType<Leaderboard>();
         depthGauge = FindObjectOfType<DepthGauge>();
         audioManager = AudioManager.GetInstance();
-        animator = FindObjectOfType<Animator>();
+        playerAnimator = GameObject.FindWithTag("PlayerAnimator").GetComponent<Animator>();
     }
 
     public void StartGame()
@@ -96,7 +96,7 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator ApplySlowMotionEffect()
     {
-        animator.SetBool("isDead", true);
+        playerAnimator.SetBool("isDead", true);
         Time.timeScale = slowdownFactor;
         currentAudioSource = audioManager.GetAudioSource("SFX", "Death");
         currentAudioSource.pitch = slowdownFactor;

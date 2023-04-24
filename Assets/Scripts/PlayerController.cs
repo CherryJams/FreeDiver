@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int diveForce = 5;
     [SerializeField] private Oxygen oxygen;
     [SerializeField] private GameObject oxygenBar;
+    private Level level;
     private bool canMoveVertically = false;
     private Rigidbody2D rigidbody2D;
     private BoxCollider2D boxCollider2D;
@@ -23,13 +24,13 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        level = GetComponent<Level>();
         gameManager = GameManager.GetInstance();
         audioManager = AudioManager.GetInstance();
         isUnderwater = false;
         rigidbody2D = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         movementVector = new Vector3();
-        
     }
 
     void FixedUpdate()
@@ -118,5 +119,12 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(audioSource.clip.length);
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        level.AddExperience(other.gameObject.GetComponent<Fish>().GetExperienceReward());
+        other.gameObject.SetActive(false);
+        currentAudioSource=audioManager.GetAudioSource("SFX", "FishPickup");
+        currentAudioSource.PlayOneShot(currentAudioSource.clip, 0.5f);
+    }
 }
