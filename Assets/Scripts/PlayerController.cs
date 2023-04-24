@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int diveForce = 5;
     [SerializeField] private Oxygen oxygen;
     [SerializeField] private GameObject oxygenBar;
+    [SerializeField] private GameObject pressSpaceText;
     private Level level;
     private bool canMoveVertically = false;
     private Rigidbody2D rigidbody2D;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && !isUnderwater)
             {
                 isUnderwater = true;
+                pressSpaceText.SetActive(false); 
                 StartCoroutine(Dive(1f));
             }
         }
@@ -126,5 +128,13 @@ public class PlayerController : MonoBehaviour
         other.gameObject.SetActive(false);
         currentAudioSource=audioManager.GetAudioSource("SFX", "FishPickup");
         currentAudioSource.PlayOneShot(currentAudioSource.clip, 0.5f);
+    }
+
+     public void IncreaseSpeed()
+    {
+        var temp= speed;
+        temp /= 100;
+        temp *= 5;
+        speed += temp;
     }
 }

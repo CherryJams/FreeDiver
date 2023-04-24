@@ -13,6 +13,7 @@ TagManager:
   - Jellyfish
   - Eel
   - Anglerfish
+  - UISounds
   layers:
   - Default
   - TransparentFX

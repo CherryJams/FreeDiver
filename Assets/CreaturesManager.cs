@@ -42,6 +42,8 @@ public class CreaturesManager : MonoBehaviour
 
             creaturesLists[i] = speciesGroup;
         }
+        
+        InvokeRepeating("SpawnCreature", firstSpawnDelay, spawnRepeatRate);
     }
 
     public GameObject GetPooledObject(int speciesIndex)
@@ -57,10 +59,6 @@ public class CreaturesManager : MonoBehaviour
         return null;
     }
 
-    private void Update()
-    {
-        InvokeRepeating("SpawnCreature", firstSpawnDelay, spawnRepeatRate);
-    }
 
     private void SpawnCreature()
     {
@@ -120,6 +118,12 @@ public class CreaturesManager : MonoBehaviour
         position.z = 0;
         return position;
     }
-
+    public void IncreaseSpawnRate()
+    {
+        var temp = spawnRepeatRate;
+        temp /= 100;
+        temp *= 5;
+        spawnRepeatRate -= temp;
+    }
 
 }

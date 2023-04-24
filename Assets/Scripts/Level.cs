@@ -7,6 +7,7 @@ public class Level : MonoBehaviour
     [SerializeField] private int level = 1;
     [SerializeField] private int experience = 0;
     [SerializeField] private ExperienceBar experienceBar;
+    [SerializeField] private GameObject upgradesMenu;
 
 
     int TO_LEVEL_UP
@@ -34,6 +35,28 @@ public class Level : MonoBehaviour
             experience -= TO_LEVEL_UP;
             level++;
             experienceBar.SetLevelText(level);
+            ShowUpdragesMenu();
         }
+    }
+
+    private void ShowUpdragesMenu()
+    {
+        Time.timeScale = 0;
+        AudioManager.GetInstance().GetAudioSource("UISounds", "LevelUp").Play();
+        upgradesMenu.SetActive(true);
+    }
+
+    public void HideUpgradesMenu()
+    {
+        Time.timeScale = 1;
+        upgradesMenu.SetActive(false);
+    }
+
+    public void ResetLevel()
+    {
+        level = 1;
+        experience = 0;
+        experienceBar.UpdateExperienceSlider(experience, TO_LEVEL_UP);
+        experienceBar.SetLevelText(level);
     }
 }

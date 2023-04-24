@@ -18,7 +18,7 @@ public class Oxygen : MonoBehaviour
 
     private void Update()
     {
-       bar.transform.position = player.transform.position + new Vector3(-0.5f, -0.8f, 0);
+        bar.transform.position = player.transform.position + new Vector3(-0.5f, -0.8f, 0);
     }
 
     public void DecreaseOxygen()
@@ -35,5 +35,13 @@ public class Oxygen : MonoBehaviour
     public void EndGame()
     {
         GameManager.GetInstance().EndGame();
+    }
+
+    public void IncreaseOxygen()
+    {
+        var temp = maxOxygen;
+        temp /= 100;
+        temp *= 5;
+        maxOxygen += temp;
     }
 }

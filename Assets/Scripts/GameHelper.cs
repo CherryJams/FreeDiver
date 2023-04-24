@@ -11,4 +11,8 @@ public class GameHelper : MonoBehaviour
    {
       GameManager.GetInstance().SetGameActive(true); 
    }
+   public void RestartGame()
+   {
+      GameManager.GetInstance().RestartGame();
+   }
 }

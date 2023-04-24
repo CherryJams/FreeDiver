@@ -18,10 +18,14 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float slowdownFactor = 0.5f;
     [SerializeField] private float slowdownTime = 1f;
     [SerializeField] private float stopTime = 0.5f;
+    private Vector3 initialPlayerPosition;
+    private Level level;
 
     private void OnEnable()
     {
+        level = FindObjectOfType<Level>();
         player = GameObject.FindWithTag("Player");
+        initialPlayerPosition = player.transform.position;
         leaderboard = FindObjectOfType<Leaderboard>();
         depthGauge = FindObjectOfType<DepthGauge>();
         audioManager = AudioManager.GetInstance();
@@ -62,7 +66,11 @@ public class GameManager : Singleton<GameManager>
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        player.transform.position = initialPlayerPosition;
+        SetGameActive(true);
+        level.ResetLevel();
+        playerAnimator.SetBool("isDead", false);
+        CanvasManager.GetInstance().SwitchCanvas(CanvasType.GameUI);
     }
 
     public void Victory()
