@@ -38,6 +38,7 @@ public class CreaturesManager : MonoBehaviour
                 GameObject creature = Instantiate(species[i]);
                 creature.SetActive(false);
                 speciesGroup.Add(creature);
+                creature.transform.parent = this.transform;
             }
 
             creaturesLists[i] = speciesGroup;
@@ -95,7 +96,6 @@ public class CreaturesManager : MonoBehaviour
         {
             newCreature.SetActive(true);
             newCreature.transform.position = randomPos;
-            newCreature.transform.SetParent(gameObject.transform);
         }
     }
 

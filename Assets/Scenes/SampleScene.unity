@@ -679,6 +679,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106296420}
   m_CullTransparentMesh: 1
+--- !u!1 &116729458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 116729460}
+  - component: {fileID: 116729459}
+  m_Layer: 0
+  m_Name: DepthGauge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &116729459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116729458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7b77e557834dcaa31a9a6586d11e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1560900530}
+  depthCounter: {fileID: 1041082937}
+--- !u!4 &116729460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116729458}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &137364687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,7 +1560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af73e636e58f4422acc518d1b3288be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxOxygen: 20
+  maxOxygen: 2
   timeToRecharge: 0
   player: {fileID: 1560900530}
 --- !u!1 &286530196
@@ -2972,23 +3018,23 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.0627451, g: 0.2509804, b: 0.627451, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
+  m_SensorSize: {x: 66.56, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 32.96973
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 34
-  orthographic: 1
-  orthographic size: 5
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 40
+  orthographic: 0
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3018,7 +3064,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.03, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4887,15 +4933,15 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1560900535}
   m_Lens:
-    FieldOfView: 34
-    OrthographicSize: 5
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FieldOfView: 40
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 66.56, y: 24}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5227,9 +5273,8 @@ GameObject:
   - component: {fileID: 1041082935}
   - component: {fileID: 1041082938}
   - component: {fileID: 1041082937}
-  - component: {fileID: 1041082936}
   m_Layer: 5
-  m_Name: DepthGauge
+  m_Name: DepthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5255,19 +5300,6 @@ RectTransform:
   m_AnchoredPosition: {x: 357.1, y: 187}
   m_SizeDelta: {x: 85.8077, y: 21.4519}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1041082936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041082934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c7b77e557834dcaa31a9a6586d11e4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1560900530}
 --- !u!114 &1041082937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7532,7 +7564,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0038452148, y: 0}
+  m_AnchoredPosition: {x: 0.0037841797, y: 0}
   m_SizeDelta: {x: 0, y: 16.3337}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1697643257
@@ -8188,7 +8220,7 @@ MonoBehaviour:
   spawnRepeatRate: 2
   firstSpawnDelay: 0
   player: {fileID: 1560900535}
-  depthGauge: {fileID: 1041082936}
+  depthGauge: {fileID: 116729459}
   species:
   - {fileID: 5280313347096833181, guid: 6843e31a04d75a74a8a1cf420a0e67d4, type: 3}
   - {fileID: 3177676311845126352, guid: 4e4e79e1d9c7344498ee830fbeff16bb, type: 3}

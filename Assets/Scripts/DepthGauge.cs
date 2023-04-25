@@ -7,11 +7,11 @@ public class DepthGauge : MonoBehaviour
     [SerializeField] GameObject player;
     private int depth;
     private int maxDepth;
-    private TextMeshProUGUI depthCounter;
+    [SerializeField] private TextMeshProUGUI depthCounter;
 
     private void Awake()
     {
-        depthCounter = gameObject.GetComponent<TextMeshProUGUI>();
+        
     }
 
     private void Update()
