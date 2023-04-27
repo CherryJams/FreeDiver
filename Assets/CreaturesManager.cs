@@ -88,7 +88,7 @@ public class CreaturesManager : MonoBehaviour
             newCreature = GetPooledObject(5);
         }
 
-        if (newCreature != null)
+        if (newCreature != null && playerDepth >= 15)
         {
             newCreature.SetActive(true);
             newCreature.transform.position = randomPos;

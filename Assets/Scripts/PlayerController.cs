@@ -34,14 +34,21 @@ public class PlayerController : MonoBehaviour
         movementVector = new Vector3();
     }
 
-    void FixedUpdate()
+    private void Update()
     {
         if (gameManager.IsGameActive())
         {
+            if (Input.GetKeyDown("space") && !isUnderwater)
+            {
+                isUnderwater = true;
+                Debug.Log(isUnderwater.ToString());
+                pressSpaceText.SetActive(false);
+                StartCoroutine(Dive(1f));
+            }
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (gameManager.IsGameActive())
         {
@@ -57,14 +64,6 @@ public class PlayerController : MonoBehaviour
             if (IsPlayerFacingOppositeDirectionOfMovement())
             {
                 Flip();
-            }
-
-            if (Input.GetKeyDown("space") && !isUnderwater)
-            {
-                isUnderwater = true;
-                Debug.Log(isUnderwater.ToString());
-                pressSpaceText.SetActive(false);
-                StartCoroutine(Dive(1f));
             }
         }
     }

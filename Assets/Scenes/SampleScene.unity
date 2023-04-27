@@ -8217,7 +8217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creature: {fileID: 5280313347096833181, guid: 6843e31a04d75a74a8a1cf420a0e67d4, type: 3}
   spawnArea: {x: 15, y: 8}
-  spawnRepeatRate: 2
+  spawnRepeatRate: 0.5
   firstSpawnDelay: 0
   player: {fileID: 1560900535}
   depthGauge: {fileID: 116729459}
