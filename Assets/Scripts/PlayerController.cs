@@ -38,6 +38,13 @@ public class PlayerController : MonoBehaviour
     {
         if (gameManager.IsGameActive())
         {
+        }
+    }
+
+    private void Update()
+    {
+        if (gameManager.IsGameActive())
+        {
             movementVector.x = Input.GetAxis("Horizontal");
             movementVector.y = 0;
             if (canMoveVertically)
@@ -52,21 +59,13 @@ public class PlayerController : MonoBehaviour
                 Flip();
             }
 
-       
-        }
-    }
-
-    private void Update()
-    {
-        if (gameManager.IsGameActive())
-        {
             if (Input.GetKeyDown("space") && !isUnderwater)
             {
                 isUnderwater = true;
                 Debug.Log(isUnderwater.ToString());
-                pressSpaceText.SetActive(false); 
+                pressSpaceText.SetActive(false);
                 StartCoroutine(Dive(1f));
-            } 
+            }
         }
     }
 
@@ -135,13 +134,13 @@ public class PlayerController : MonoBehaviour
     {
         level.AddExperience(other.gameObject.GetComponent<Fish>().GetExperienceReward());
         other.gameObject.SetActive(false);
-        currentAudioSource=audioManager.GetAudioSource("SFX", "FishPickup");
+        currentAudioSource = audioManager.GetAudioSource("SFX", "FishPickup");
         currentAudioSource.PlayOneShot(currentAudioSource.clip, 0.5f);
     }
 
-     public void IncreaseSpeed()
+    public void IncreaseSpeed()
     {
-        var temp= speed;
+        var temp = speed;
         temp /= 100;
         temp *= 5;
         speed += temp;
