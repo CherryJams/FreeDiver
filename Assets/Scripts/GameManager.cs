@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Animator playerAnimator;
     private AudioManager audioManager;
     private AudioSource currentAudioSource;
-    private bool isGameActive = true;
+    private bool isGameActive = false;
     private bool isPlayerUnderwater = false;
     private Leaderboard leaderboard;
     private DepthGauge depthGauge;
@@ -65,10 +65,10 @@ public class GameManager : Singleton<GameManager>
 
     public void RestartGame()
     {
+        playerAnimator.SetBool("isDead", false);
         player.transform.position = initialPlayerPosition;
         SetGameActive(true);
         level.ResetLevel();
-        playerAnimator.SetBool("isDead", false);
         CanvasManager.GetInstance().SwitchCanvas(CanvasType.GameUI);
     }
 

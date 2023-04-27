@@ -52,12 +52,21 @@ public class PlayerController : MonoBehaviour
                 Flip();
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && !isUnderwater)
+       
+        }
+    }
+
+    private void Update()
+    {
+        if (gameManager.IsGameActive())
+        {
+            if (Input.GetKeyDown("space") && !isUnderwater)
             {
                 isUnderwater = true;
+                Debug.Log(isUnderwater.ToString());
                 pressSpaceText.SetActive(false); 
                 StartCoroutine(Dive(1f));
-            }
+            } 
         }
     }
 

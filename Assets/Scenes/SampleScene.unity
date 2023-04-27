@@ -1560,7 +1560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af73e636e58f4422acc518d1b3288be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxOxygen: 2
+  maxOxygen: 20
   timeToRecharge: 0
   player: {fileID: 1560900530}
 --- !u!1 &286530196
@@ -8103,14 +8103,14 @@ MonoBehaviour:
       - m_Target: {fileID: 248124931}
         m_TargetAssemblyTypeName: GameHelper, Assembly-CSharp
         m_MethodName: SetGameActive
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
